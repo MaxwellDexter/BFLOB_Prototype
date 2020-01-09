@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float rotateSpeed;
 
     private Transform groundCheck;
+    private AnimationController animator;
 
     [HideInInspector]
     public bool isGrounded;
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         groundCheck = transform.Find("GroundCheck");
+        animator = GetComponentInChildren<AnimationController>();
     }
 
     private void Update()
@@ -28,9 +30,11 @@ public class PlayerController : MonoBehaviour
         // is grounded
         Physics.Raycast(groundCheck.position, new Vector3(0, -1), out RaycastHit raycastHit, 0.1f);
         isGrounded = raycastHit.transform != null && raycastHit.transform.gameObject.layer == LayerMask.NameToLayer("Ground");
+        animator.IsGrounded(isGrounded);
 
         // forward / backward
         forwardVelToAdd = Input.GetAxis("Vertical");
+        animator.SetVelocity(forwardVelToAdd);
         if (rb.velocity.magnitude > maxMovementSpeed || rb.velocity.magnitude < -maxMovementSpeed)
         {
             forwardVelToAdd = 0;
@@ -39,11 +43,13 @@ public class PlayerController : MonoBehaviour
         // turn
         float rotate = Input.GetAxis("Horizontal");
         transform.RotateAround(transform.position, transform.up, rotate * (isGrounded ? rotateSpeed : rotateSpeed / 2));
+        animator.SetTurning(rotate);
 
         // jump
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.AddForce(0, jumpForce, 0);
+            animator.Jump();
         }
     }
 

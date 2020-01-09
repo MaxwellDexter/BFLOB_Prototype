@@ -36,7 +36,7 @@ public class CameraController : MonoBehaviour
         {
             // smooth clamp the horizontal
             float currentVel = controller.rb.velocity.magnitude;
-            currentY = Mathf.SmoothDamp(currentY, target.transform.eulerAngles.y, ref currentVel, 0.1f);
+            currentY = Mathf.SmoothDamp(currentY, target.transform.eulerAngles.y, ref currentVel, 0.05f);
         }
 
         currentX = Mathf.Clamp(currentX, Y_ANGLE_MIN, Y_ANGLE_MAX);
