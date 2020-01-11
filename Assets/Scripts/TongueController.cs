@@ -5,25 +5,31 @@ public class TongueController : MonoBehaviour
 {
     public float maxTongueDistance;
     public float numOfNodes;
+    public float slingshotPower;
     public GameObject nodePrefab;
+    public GameObject springPrefab;
     public Transform mouthPos;
 
     private Camera theCamera;
     private List<GameObject> currentNodes;
     private LineRenderer lineRenderer;
+    private SpringJoint spring;
+    private Rigidbody rb;
 
     private void Start()
     {
         currentNodes = new List<GameObject>();
         theCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+
+        spring = GetComponent<SpringJoint>();
+        rb = GetComponent<Rigidbody>();
+
         lineRenderer = GetComponent<LineRenderer>();
         float ropeWidth = 0.1f;
         lineRenderer.startWidth = ropeWidth;
         lineRenderer.endWidth = ropeWidth;
     }
-
-    // maybe attach the first joint as a child of the player object
-
+    
     private void Update()
     {
         // shoot tongue
@@ -33,7 +39,11 @@ public class TongueController : MonoBehaviour
         }
         else if (Input.GetButtonDown("Fire2"))
         {
-            ClearTongue();
+            ClearSpring();
+        }
+        else if (Input.GetButtonDown("Fire3"))
+        {
+            SlingshotToAnchor();
         }
 
         DrawTongue();
@@ -48,6 +58,11 @@ public class TongueController : MonoBehaviour
             {
                 lineRenderer.SetPosition(i, currentNodes[i].transform.position);
             }
+        }
+        else if (spring.connectedAnchor != Vector3.zero)
+        {
+            lineRenderer.positionCount = 2;
+            lineRenderer.SetPositions(new Vector3[] {mouthPos.position, spring.connectedAnchor});
         }
     }
 
@@ -72,8 +87,45 @@ public class TongueController : MonoBehaviour
             position = theCamera.transform.position + theCamera.transform.TransformDirection(Vector3.forward) * maxTongueDistance;
             Debug.Log("Did NOT hit!");
         }
-        CreateNodes(mouthPos.position, position, didHit);
+
+        DoSpring(mouthPos.position, position, didHit);
+        // CreateNodes(mouthPos.position, position, didHit);
     }
+
+    private void DoSpring(Vector3 startPos, Vector3 endPos, bool didHit)
+    {
+        ClearSpring();
+
+        float distance = Vector3.Distance(startPos, endPos);
+
+        if (didHit)
+        {
+            spring.connectedAnchor = endPos;
+            spring.spring = 50;
+            spring.minDistance = distance;
+            spring.minDistance = distance;
+        }
+    }
+
+    private void ClearSpring()
+    {
+        spring.spring = 0;
+        spring.connectedAnchor = Vector3.zero;
+    }
+
+    private void SlingshotToAnchor()
+    {
+        // add force from position to anchor
+        if (spring.connectedAnchor != Vector3.zero)
+        {
+            Vector3 heading = spring.connectedAnchor - mouthPos.position;
+            float distance = Vector3.Distance(mouthPos.position, spring.connectedAnchor);
+            ClearSpring();
+            rb.AddForce(heading.normalized * distance * slingshotPower);
+        }
+    }
+
+    // rope stuff
 
     private void CreateNodes(Vector3 startPos, Vector3 endPos, bool didHit)
     {
@@ -104,7 +156,7 @@ public class TongueController : MonoBehaviour
     {
         GameObject node = Instantiate(nodePrefab, pos, Quaternion.identity);
         //node.GetComponent<Rigidbody>().isKinematic = true;
-        node.GetComponent<HingeJoint>().connectedBody = GetComponent<Rigidbody>();
+        node.GetComponent<HingeJoint>().connectedBody = rb;
         return node;
     }
 
