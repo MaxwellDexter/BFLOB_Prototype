@@ -2,11 +2,6 @@
 
 public class CameraController : MonoBehaviour
 {
-    // can have two modes of camera movement
-    // on the ground it acts like a third person shooter and the camera movement is limited to in front of you
-    // in the air you can rotate it anywhere and shoot the tongue
-    // it will flip the frog around and do a sick tongue shot
-
     public Transform target;
     public PlayerController controller;
     public float mouseSpeed;
@@ -22,6 +17,7 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         controller = target.GetComponent<PlayerController>();
+        Cursor.visible = false;
     }
 
     private void Update()

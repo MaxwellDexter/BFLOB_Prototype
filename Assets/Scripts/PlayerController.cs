@@ -28,9 +28,14 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // is grounded
+        bool wasGrounded = isGrounded;
         Physics.Raycast(groundCheck.position, new Vector3(0, -1), out RaycastHit raycastHit, 0.1f);
         isGrounded = raycastHit.transform != null && raycastHit.transform.gameObject.layer == LayerMask.NameToLayer("Ground");
         animator.IsGrounded(isGrounded);
+        if (!wasGrounded && isGrounded)
+        {
+            animator.Landed();
+        }
 
         // forward / backward
         forwardVelToAdd = Input.GetAxis("Vertical");

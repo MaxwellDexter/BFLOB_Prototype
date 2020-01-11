@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class AnimationController : MonoBehaviour
 {
@@ -10,15 +11,38 @@ public class AnimationController : MonoBehaviour
     private readonly string turningSpeed = "TurningSpeed";
     private readonly string isMoving = "IsMoving";
     private readonly string isTurning = "IsTurning";
+    
+    public Rigidbody bodyRigidBody;
+    private Quaternion originalBodyRotation;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
+        originalBodyRotation = bodyRigidBody.transform.localRotation;
+    }
+
+    private void EnableRagdoll(bool enable)
+    {
+        if (!enable)
+        {
+            bodyRigidBody.transform.localRotation = originalBodyRotation;
+        }
+
+        bodyRigidBody.isKinematic = !enable;
+
+        // turn on/off animator
+        anim.enabled = !enable;
     }
 
     public void Jump()
     {
         anim.SetTrigger(jump);
+        EnableRagdoll(true);
+    }
+
+    public void Landed()
+    {
+        EnableRagdoll(false);
     }
 
     public void IsGrounded(bool isGrounded)
