@@ -10,6 +10,9 @@ public class TongueController : MonoBehaviour
     public GameObject springPrefab;
     public Transform mouthPos;
 
+    [HideInInspector]
+    public Transform swingObject;
+
     private Camera theCamera;
     private List<GameObject> currentNodes;
     private LineRenderer lineRenderer;
@@ -68,8 +71,11 @@ public class TongueController : MonoBehaviour
 
     private void ThrowTongue()
     {
-        bool didHit = Physics.Raycast(
+        ClearSpring();
+
+        bool didHit = Physics.SphereCast(
                 theCamera.transform.position,
+                1,
                 theCamera.transform.TransformDirection(Vector3.forward),
                 out RaycastHit hit,
                 maxTongueDistance,
@@ -80,12 +86,11 @@ public class TongueController : MonoBehaviour
         if (didHit)
         {
             position = hit.point;
-            Debug.Log("Did hit!");
+            swingObject = hit.transform;
         }
         else
         {
             position = theCamera.transform.position + theCamera.transform.TransformDirection(Vector3.forward) * maxTongueDistance;
-            Debug.Log("Did NOT hit!");
         }
 
         DoSpring(mouthPos.position, position, didHit);
@@ -94,8 +99,6 @@ public class TongueController : MonoBehaviour
 
     private void DoSpring(Vector3 startPos, Vector3 endPos, bool didHit)
     {
-        ClearSpring();
-
         float distance = Vector3.Distance(startPos, endPos);
 
         if (didHit)
@@ -109,6 +112,7 @@ public class TongueController : MonoBehaviour
 
     private void ClearSpring()
     {
+        swingObject = null;
         spring.spring = 0;
         spring.connectedAnchor = Vector3.zero;
     }

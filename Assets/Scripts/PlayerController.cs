@@ -2,10 +2,7 @@
 
 public class PlayerController : MonoBehaviour
 {
-    public float acceleration;
-    public float maxMovementSpeed;
-    public float jumpForce;
-    public float rotateSpeed;
+    public float acceleration, maxMovementSpeed, jumpForce, rotateSpeed;
 
     private Transform groundCheck;
     private AnimationController animator;
@@ -13,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool isGrounded;
 
-    private float forwardVelToAdd;
+    private float forwardVelToAdd, rightVelToAdd;
 
     [HideInInspector]
     public Rigidbody rb;
@@ -40,15 +37,11 @@ public class PlayerController : MonoBehaviour
         // forward / backward
         forwardVelToAdd = Input.GetAxis("Vertical");
         animator.SetVelocity(forwardVelToAdd);
-        if (rb.velocity.magnitude > maxMovementSpeed || rb.velocity.magnitude < -maxMovementSpeed)
-        {
-            forwardVelToAdd = 0;
-        }
 
-        // turn
-        float rotate = Input.GetAxis("Horizontal");
-        transform.RotateAround(transform.position, transform.up, rotate * (isGrounded ? rotateSpeed : rotateSpeed / 2));
-        animator.SetTurning(rotate);
+        // strafe
+        float horizontal = Input.GetAxis("Horizontal");
+        rightVelToAdd = horizontal;
+        animator.SetTurning(horizontal);
 
         // jump
         if (Input.GetButtonDown("Jump") && isGrounded)
@@ -56,13 +49,23 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(0, jumpForce, 0);
             animator.Jump();
         }
+
+        // clamp velocity
+        if (rb.velocity.magnitude > maxMovementSpeed || rb.velocity.magnitude < -maxMovementSpeed)
+        {
+            forwardVelToAdd = 0;
+            rightVelToAdd = 0;
+        }
     }
 
     private void FixedUpdate()
     {
-        if (forwardVelToAdd > 0 || forwardVelToAdd < 0)
+        if (forwardVelToAdd > 0 || forwardVelToAdd < 0 || rightVelToAdd > 0 || rightVelToAdd < 0)
         {
-            rb.AddForce(transform.rotation * new Vector3(0, 0, forwardVelToAdd * acceleration));
+            rb.AddForce(transform.rotation * new Vector3(
+                rightVelToAdd * acceleration,
+                0,
+                forwardVelToAdd * acceleration));
         }
     }
 }
