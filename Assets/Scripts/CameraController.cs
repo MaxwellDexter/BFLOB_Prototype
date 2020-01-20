@@ -2,9 +2,17 @@
 
 public class CameraController : MonoBehaviour
 {
+    public enum CameraMode
+    {
+        FrogLocked,
+        Ball
+    }
+
     public Transform target;
     public Transform lookAtPos;
+    public Transform ballCentre;
     public float mouseSpeed, sensitivityX, sensitivityY, distance, lockOnRadius;
+    public CameraMode cameraMode;
 
     private const float Y_ANGLE_MIN = -90f;
     private const float Y_ANGLE_MAX = 90f;
@@ -27,7 +35,16 @@ public class CameraController : MonoBehaviour
         float mouseVertical = Input.GetAxis("Mouse Y");
 
         currentX += mouseVertical * sensitivityX;
-        currentY = mouseHorizontal * sensitivityY;
+
+        switch (cameraMode)
+        {
+            case CameraMode.FrogLocked:
+                currentY = mouseHorizontal * sensitivityY;
+                break;
+            case CameraMode.Ball:
+                currentY += mouseHorizontal * sensitivityY;
+                break;
+        }
 
         // clamp the x from rotating past regular
         currentX = Mathf.Clamp(currentX, Y_ANGLE_MIN, Y_ANGLE_MAX);
@@ -35,14 +52,25 @@ public class CameraController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        LockOn();
+        Vector3 currentVel = controller.rb.velocity;
+        float yValue = 0;
 
-        float yValue = target.rotation.eulerAngles.y;
-        target.Rotate(new Vector3(0, currentY, 0));
+        switch (cameraMode)
+        {
+            case CameraMode.FrogLocked:
+                LockOn();
+                yValue = target.rotation.eulerAngles.y;
+                target.Rotate(new Vector3(0, currentY, 0));
+                break;
+            case CameraMode.Ball:
+                currentLookAtPos = Vector3.SmoothDamp(currentLookAtPos, ballCentre.position, ref currentVel, 0.05f);
+                yValue = currentY;
+                break;
+        }
+
 
         Vector3 offset = new Vector3(0, 0, -distance);
         Quaternion rotation = Quaternion.Euler(currentX, yValue, 0);
-        Vector3 currentVel = controller.rb.velocity;
         transform.position = Vector3.SmoothDamp(transform.position, target.transform.position + rotation * offset, ref currentVel, 0.05f);
         transform.LookAt(currentLookAtPos);
     }

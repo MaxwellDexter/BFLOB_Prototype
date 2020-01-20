@@ -18,6 +18,7 @@ public class AnimationController : MonoBehaviour
     private void Start()
     {
         anim = GetComponent<Animator>();
+        anim.enabled = true;
         originalBodyRotation = bodyRigidBody.transform.localRotation;
     }
 
@@ -37,12 +38,12 @@ public class AnimationController : MonoBehaviour
     public void Jump()
     {
         anim.SetTrigger(jump);
-        EnableRagdoll(true);
+        // EnableRagdoll(true);
     }
 
     public void Landed()
     {
-        EnableRagdoll(false);
+        //EnableRagdoll(false);
     }
 
     public void IsGrounded(bool isGrounded)

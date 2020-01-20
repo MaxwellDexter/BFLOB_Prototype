@@ -18,12 +18,14 @@ public class TongueController : MonoBehaviour
     private SpringJoint spring;
     private Rigidbody rb;
     private InventoryController inventory;
+    private PlayerController playerController;
 
     private void Start()
     {
         currentNodes = new List<GameObject>();
         theCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
+        playerController = GetComponent<PlayerController>();
         spring = GetComponent<SpringJoint>();
         rb = GetComponent<Rigidbody>();
         inventory = GetComponent<InventoryController>();
@@ -37,7 +39,7 @@ public class TongueController : MonoBehaviour
     private void Update()
     {
         // shoot tongue
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && playerController.canInput)
         {
             ThrowTongue();
         }
@@ -45,7 +47,7 @@ public class TongueController : MonoBehaviour
         {
             ClearSpring();
         }
-        else if (Input.GetButtonDown("Fire3"))
+        else if (Input.GetButtonDown("Fire3") && playerController.canInput)
         {
             SlingshotToAnchor();
         }
@@ -114,6 +116,7 @@ public class TongueController : MonoBehaviour
         spring.spring = 50;
         spring.minDistance = distance;
         spring.minDistance = distance;
+        lineRenderer.enabled = true;
     }
 
     private void ClearSpring()
@@ -121,6 +124,7 @@ public class TongueController : MonoBehaviour
         swingObject = null;
         spring.spring = 0;
         spring.connectedAnchor = Vector3.zero;
+        lineRenderer.enabled = false;
     }
 
     private void SlingshotToAnchor()

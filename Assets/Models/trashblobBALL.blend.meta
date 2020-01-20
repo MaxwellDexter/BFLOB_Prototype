@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a07f593adf8734ed48092e3b68146d39
+guid: 56cff6eca360049e181b600d71d05521
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable:
@@ -10,14 +10,11 @@ ModelImporter:
       74: 1079665108409675491
     second: Armature|Jump
   - first:
-      74: -1843689353378851008
-    second: Armature|unused
+      74: 6466895884489605897
+    second: Armature|Turning
   - first:
       74: -4274770991410265338
     second: Armature|Walking
-  - first:
-      74: 6466895884489605897
-    second: Armature|Turning
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -58,8 +55,8 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -79,7 +76,7 @@ ModelImporter:
       name: Armature|Jump
       takeName: Armature|Jump
       internalID: 1079665108409675491
-      firstFrame: 20
+      firstFrame: 0
       lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
@@ -89,35 +86,6 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Armature|Walking
-      takeName: Armature|Walking
-      internalID: -4274770991410265338
-      firstFrame: 20
-      lastFrame: 60
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -145,8 +113,37 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Walking
+      takeName: Armature|Walking
+      internalID: -4274770991410265338
+      firstFrame: 0
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -212,7 +209,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: Base
+    rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
