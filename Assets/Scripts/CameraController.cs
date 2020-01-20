@@ -49,16 +49,13 @@ public class CameraController : MonoBehaviour
 
     private void LockOn()
     {
-        // ground and player
-        int layerMask = 1 << 8 | 1 << 9;
-        layerMask = ~layerMask;
         bool didHit = Physics.SphereCast(
                 transform.position,
                 lockOnRadius,
                 lookAtPos.position - transform.position,
                 out RaycastHit hit,
                 tongueController.maxTongueDistance,
-                layerMask
+                PlayerScriptHelper.GetHittableLayers()
             );
 
         Vector3 currentVel = controller.rb.velocity;

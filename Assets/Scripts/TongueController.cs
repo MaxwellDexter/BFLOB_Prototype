@@ -7,7 +7,6 @@ public class TongueController : MonoBehaviour
     public float numOfNodes;
     public float slingshotPower;
     public GameObject nodePrefab;
-    public GameObject springPrefab;
     public Transform mouthPos;
 
     [HideInInspector]
@@ -18,6 +17,7 @@ public class TongueController : MonoBehaviour
     private LineRenderer lineRenderer;
     private SpringJoint spring;
     private Rigidbody rb;
+    private InventoryController inventory;
 
     private void Start()
     {
@@ -26,6 +26,7 @@ public class TongueController : MonoBehaviour
 
         spring = GetComponent<SpringJoint>();
         rb = GetComponent<Rigidbody>();
+        inventory = GetComponent<InventoryController>();
 
         lineRenderer = GetComponent<LineRenderer>();
         float ropeWidth = 0.1f;
@@ -79,35 +80,40 @@ public class TongueController : MonoBehaviour
                 theCamera.transform.TransformDirection(Vector3.forward),
                 out RaycastHit hit,
                 maxTongueDistance,
-                LayerMask.NameToLayer("Player")
+                PlayerScriptHelper.GetHittableLayers()
             );
 
-        Vector3 position;
         if (didHit)
         {
-            position = hit.point;
-            swingObject = hit.transform;
+            int layer = hit.transform.gameObject.layer;
+            if (layer == LayerMask.NameToLayer(PlayerScriptHelper.COLLECTIBLE_LAYER))
+            {
+                // collect it
+                HitThingWithTongue(hit.transform.gameObject);
+            }
+            else if (layer == LayerMask.NameToLayer("Hook"))
+            {
+                // we swing
+                swingObject = hit.transform;
+                DoSpring(mouthPos.position, hit.point);
+            }
         }
         else
         {
-            position = theCamera.transform.position + theCamera.transform.TransformDirection(Vector3.forward) * maxTongueDistance;
+            // throw tongue out and play with it
+            //Vector3 endPosition = theCamera.transform.position + theCamera.transform.TransformDirection(Vector3.forward) * maxTongueDistance;
+            //CreateNodes(mouthPos.position, endPosition, didHit);
         }
-
-        DoSpring(mouthPos.position, position, didHit);
-        // CreateNodes(mouthPos.position, position, didHit);
     }
 
-    private void DoSpring(Vector3 startPos, Vector3 endPos, bool didHit)
+    private void DoSpring(Vector3 startPos, Vector3 endPos)
     {
         float distance = Vector3.Distance(startPos, endPos);
 
-        if (didHit)
-        {
-            spring.connectedAnchor = endPos;
-            spring.spring = 50;
-            spring.minDistance = distance;
-            spring.minDistance = distance;
-        }
+        spring.connectedAnchor = endPos;
+        spring.spring = 50;
+        spring.minDistance = distance;
+        spring.minDistance = distance;
     }
 
     private void ClearSpring()
@@ -146,31 +152,37 @@ public class TongueController : MonoBehaviour
             // first one has to be attached to the frog
             if (i == 0)
             {
-                currentNodes.Add(CreateFirstNode(nodePos));
+                currentNodes.Add(CreateFirstNode(nodePos, nodeLength));
                 continue;
             }
 
             bool isKinematic = i == numOfNodes - 1 && didHit;
 
-            currentNodes.Add(CreateNode(nodePos, currentNodes[i - 1], isKinematic));
+            currentNodes.Add(CreateNode(nodePos, currentNodes[i - 1], isKinematic, nodeLength));
         }
     }
 
-    private GameObject CreateFirstNode(Vector3 pos)
+    private GameObject CreateFirstNode(Vector3 pos, float distance)
     {
         GameObject node = Instantiate(nodePrefab, pos, Quaternion.identity);
         //node.GetComponent<Rigidbody>().isKinematic = true;
-        node.GetComponent<HingeJoint>().connectedBody = rb;
+        SpringJoint joint = node.GetComponent<SpringJoint>();
+        joint.minDistance = distance;
+        joint.maxDistance = distance;
+        joint.connectedBody = rb;
         return node;
     }
 
-    private GameObject CreateNode(Vector3 pos, GameObject prevJoint, bool isKinematic)
+    private GameObject CreateNode(Vector3 pos, GameObject prevJoint, bool isKinematic, float distance)
     {
         GameObject node = Instantiate(nodePrefab, pos, Quaternion.identity);
         node.GetComponent<Rigidbody>().isKinematic = isKinematic;
+        SpringJoint joint = node.GetComponent<SpringJoint>();
+        joint.minDistance = distance;
+        joint.maxDistance = distance;
         if (prevJoint != null)
         {
-            node.GetComponent<HingeJoint>().connectedBody = prevJoint.GetComponent<Rigidbody>();
+            joint.connectedBody = prevJoint.GetComponent<Rigidbody>();
         }
 
         return node;
@@ -180,8 +192,14 @@ public class TongueController : MonoBehaviour
     {
         foreach (GameObject node in currentNodes)
         {
-            GameObject.Destroy(node);
+            Destroy(node);
         }
         currentNodes.Clear();
+    }
+
+    private void HitThingWithTongue(GameObject thing)
+    {
+        inventory.AddCollectible();
+        Destroy(thing);
     }
 }
