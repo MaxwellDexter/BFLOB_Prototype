@@ -1664,6 +1664,230 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &806483231
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 806483234}
+  - component: {fileID: 806483233}
+  - component: {fileID: 806483232}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &806483232
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806483231}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d189cb43250a8417086b0af1db2e496d, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &806483233
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806483231}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 731c7170b1a4445209557bce67bdbe1c, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.6
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &806483234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806483231}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.565134, y: 6.0792527, z: -7.194149}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &859979701
 GameObject:
   m_ObjectHideFlags: 0
@@ -2924,6 +3148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bodyRigidBody: {fileID: 1868219346}
+  sounds: {fileID: 1775448129}
 --- !u!1 &1523108948
 GameObject:
   m_ObjectHideFlags: 0
@@ -3466,6 +3691,7 @@ GameObject:
   - component: {fileID: 1775448125}
   - component: {fileID: 1775448124}
   - component: {fileID: 1775448123}
+  - component: {fileID: 1775448129}
   m_Layer: 9
   m_Name: Frog
   m_TagString: Player
@@ -3690,6 +3916,151 @@ MonoBehaviour:
   frogObject: {fileID: 1523108948}
   ballObject: {fileID: 1730717410}
   isBall: 0
+--- !u!114 &1775448129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775448120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d19771c58fe449191495e1a2d23c75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Jump
+    clips: []
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    maxDistance: 0
+    rollOffMode: 0
+    numberOfVersions: 3
+    prefix: SFX_Jump
+    location: Audio/SFX
+  - name: Land
+    clips: []
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    maxDistance: 0
+    rollOffMode: 0
+    numberOfVersions: 3
+    prefix: SFX_Land
+    location: Audio/SFX
+  - name: BallTransform
+    clips: []
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    maxDistance: 0
+    rollOffMode: 0
+    numberOfVersions: 1
+    prefix: SFX_BallTransform
+    location: Audio/SFX
+  - name: FrogTransform
+    clips: []
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    maxDistance: 0
+    rollOffMode: 0
+    numberOfVersions: 1
+    prefix: SFX_FrogTransform
+    location: Audio/SFX
+  - name: Hit
+    clips: []
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    maxDistance: 0
+    rollOffMode: 0
+    numberOfVersions: 3
+    prefix: SFX_Hit
+    location: Audio/SFX
+  - name: Miss
+    clips: []
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    maxDistance: 0
+    rollOffMode: 0
+    numberOfVersions: 3
+    prefix: SFX_Miss
+    location: Audio/SFX
+  - name: Slingshot
+    clips: []
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    maxDistance: 0
+    rollOffMode: 0
+    numberOfVersions: 3
+    prefix: SFX_Slingshot
+    location: Audio/SFX
+  - name: Collect
+    clips: []
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    maxDistance: 0
+    rollOffMode: 0
+    numberOfVersions: 1
+    prefix: SFX_Collect
+    location: Audio/SFX
+  - name: Bounce
+    clips: []
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    maxDistance: 0
+    rollOffMode: 0
+    numberOfVersions: 4
+    prefix: SFX_Bounce
+    location: Audio/SFX
+  - name: Footstep
+    clips: []
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    maxDistance: 0
+    rollOffMode: 0
+    numberOfVersions: 8
+    prefix: SFX_Footstep
+    location: Audio/SFX
+  - name: Retract
+    clips: []
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+    spatialBlend: 0
+    maxDistance: 0
+    rollOffMode: 0
+    numberOfVersions: 1
+    prefix: SFX_Retract
+    location: Audio/SFX
 --- !u!1 &1799314996 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3298574379738727444, guid: a07f593adf8734ed48092e3b68146d39,

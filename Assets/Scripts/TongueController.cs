@@ -19,6 +19,7 @@ public class TongueController : MonoBehaviour
     private Rigidbody rb;
     private InventoryController inventory;
     private PlayerController playerController;
+    private SoundController sounds;
 
     private void Start()
     {
@@ -26,6 +27,7 @@ public class TongueController : MonoBehaviour
         theCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
         playerController = GetComponent<PlayerController>();
+        sounds = GetComponent<SoundController>();
         spring = GetComponent<SpringJoint>();
         rb = GetComponent<Rigidbody>();
         inventory = GetComponent<InventoryController>();
@@ -46,6 +48,7 @@ public class TongueController : MonoBehaviour
         else if (Input.GetButtonDown("Fire2"))
         {
             ClearSpring();
+            sounds.PlaySound("Retract");
         }
         else if (Input.GetButtonDown("Fire3") && playerController.canInput)
         {
@@ -92,16 +95,23 @@ public class TongueController : MonoBehaviour
             {
                 // collect it
                 HitThingWithTongue(hit.transform.gameObject);
+                sounds.PlaySound("Collect");
             }
             else if (layer == LayerMask.NameToLayer("Hook"))
             {
                 // we swing
                 swingObject = hit.transform;
                 DoSpring(mouthPos.position, hit.point);
+                sounds.PlaySound("Hit");
+            }
+            else
+            {
+                sounds.PlaySound("Miss");
             }
         }
         else
         {
+            sounds.PlaySound("Miss");
             // throw tongue out and play with it
             //Vector3 endPosition = theCamera.transform.position + theCamera.transform.TransformDirection(Vector3.forward) * maxTongueDistance;
             //CreateNodes(mouthPos.position, endPosition, didHit);
@@ -136,6 +146,7 @@ public class TongueController : MonoBehaviour
             float distance = Vector3.Distance(mouthPos.position, spring.connectedAnchor);
             ClearSpring();
             rb.AddForce(heading.normalized * distance * slingshotPower);
+            sounds.PlaySound("Slingshot");
         }
     }
 

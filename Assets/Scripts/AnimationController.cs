@@ -14,6 +14,7 @@ public class AnimationController : MonoBehaviour
     
     public Rigidbody bodyRigidBody;
     private Quaternion originalBodyRotation;
+    public SoundController sounds;
 
     private void Start()
     {
@@ -61,5 +62,10 @@ public class AnimationController : MonoBehaviour
     {
         anim.SetBool(isTurning, turnVel != 0);
         anim.SetFloat(turningSpeed, turnVel);
+    }
+
+    public void FootstepEvent()
+    {
+        sounds.PlaySound("Footstep");
     }
 }

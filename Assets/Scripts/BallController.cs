@@ -10,6 +10,7 @@ public class BallController : MonoBehaviour
 
     private CameraController cameraController;
     private PlayerController playerController;
+    private SoundController sounds;
     private Rigidbody rb;
 
     private void Start()
@@ -17,6 +18,7 @@ public class BallController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         cameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
         playerController = GetComponent<PlayerController>();
+        sounds = GetComponent<SoundController>();
 
         isBall = false;
         frogObject.SetActive(true);
@@ -51,6 +53,7 @@ public class BallController : MonoBehaviour
         rb.freezeRotation = false;
         cameraController.cameraMode = CameraController.CameraMode.Ball;
         playerController.canInput = false;
+        sounds.PlaySound("BallTransform");
     }
 
     private void TransformToFrog()
@@ -59,5 +62,14 @@ public class BallController : MonoBehaviour
         transform.rotation = Quaternion.identity;
         cameraController.cameraMode = CameraController.CameraMode.FrogLocked;
         playerController.canInput = true;
+        sounds.PlaySound("FrogTransform");
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (isBall)
+        {
+            sounds.PlaySound("Bounce");
+        }
     }
 }
