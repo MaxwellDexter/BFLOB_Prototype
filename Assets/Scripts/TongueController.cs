@@ -36,6 +36,8 @@ public class TongueController : MonoBehaviour
         float ropeWidth = 0.1f;
         lineRenderer.startWidth = ropeWidth;
         lineRenderer.endWidth = ropeWidth;
+
+        ClearSpring();
     }
     
     private void Update()

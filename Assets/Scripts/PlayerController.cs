@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<AnimationController>();
         sounds = GetComponent<SoundController>();
+        canInput = true;
     }
 
     private void Update()

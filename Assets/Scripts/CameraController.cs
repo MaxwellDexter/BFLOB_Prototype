@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
@@ -12,7 +12,6 @@ public class CameraController : MonoBehaviour
     public Transform lookAtPos;
     public Transform ballCentre;
     public float mouseSpeed, sensitivityX, sensitivityY, distance, lockOnRadius;
-    public CameraMode cameraMode;
 
     private const float Y_ANGLE_MIN = -90f;
     private const float Y_ANGLE_MAX = 90f;
@@ -21,6 +20,7 @@ public class CameraController : MonoBehaviour
     private TongueController tongueController;
     private float currentX, currentY;
     private Vector3 currentLookAtPos;
+    private CameraMode cameraMode;
 
     private void Start()
     {
@@ -94,5 +94,19 @@ public class CameraController : MonoBehaviour
             ref currentVel,
             0.05f
         );
+    }
+
+    public void SetCameraMode(CameraMode mode)
+    {
+        cameraMode = mode;
+        if (cameraMode == CameraMode.Ball)
+        {
+            SwapToBallMode();
+        }
+    }
+
+    public void SwapToBallMode()
+    {
+        currentY = target.rotation.eulerAngles.y;
     }
 }

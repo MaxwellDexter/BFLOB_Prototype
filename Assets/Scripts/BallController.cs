@@ -51,7 +51,7 @@ public class BallController : MonoBehaviour
     private void TransformToBall()
     {
         rb.freezeRotation = false;
-        cameraController.cameraMode = CameraController.CameraMode.Ball;
+        cameraController.SetCameraMode(CameraController.CameraMode.Ball);
         playerController.canInput = false;
         sounds.PlaySound("BallTransform");
     }
@@ -60,7 +60,7 @@ public class BallController : MonoBehaviour
     {
         rb.freezeRotation = true;
         transform.rotation = Quaternion.identity;
-        cameraController.cameraMode = CameraController.CameraMode.FrogLocked;
+        cameraController.SetCameraMode(CameraController.CameraMode.FrogLocked);
         playerController.canInput = true;
         sounds.PlaySound("FrogTransform");
     }
