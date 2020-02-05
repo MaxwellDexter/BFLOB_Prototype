@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public float acceleration, maxMovementSpeed, jumpForce, rotateSpeed;
+    public float acceleration, maxMovementSpeed, jumpForce, rotateSpeed, dashPower;
     public Transform groundCheck;
 
     [HideInInspector]
@@ -16,12 +17,16 @@ public class PlayerController : MonoBehaviour
     private SoundController sounds;
     private float forwardVelToAdd, rightVelToAdd;
 
+    public BarContainer bar;
+    public Image dashBarImage;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<AnimationController>();
         sounds = GetComponent<SoundController>();
         canInput = true;
+        //bar = new BarContainer(dashPower * 5, dashPower * 5, 10, 0);
     }
 
     private void Update()
@@ -36,6 +41,8 @@ public class PlayerController : MonoBehaviour
 
             DoJump();
 
+            DoDash();
+
             // clamp velocity
             if (rb.velocity.magnitude > maxMovementSpeed || rb.velocity.magnitude < -maxMovementSpeed)
             {
@@ -44,6 +51,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        bar.UpdateBar();
+        dashBarImage.fillAmount = bar.GetFillPercentage();
     }
 
     private void CheckGround()
@@ -79,6 +88,14 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(0, jumpForce, 0);
             animator.Jump();
             sounds.PlaySound("Jump");
+        }
+    }
+
+    private void DoDash()
+    {
+        if (Input.GetButtonDown("Dash") && bar.AddToCurrentIfLegal(-dashPower))
+        {
+            rb.AddForce(transform.rotation * new Vector3(0, 0, dashPower));
         }
     }
 

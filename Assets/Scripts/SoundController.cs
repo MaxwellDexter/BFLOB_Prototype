@@ -3,15 +3,15 @@
 public class SoundController : MonoBehaviour
 {
     public Sound[] sounds;
+    private AudioSource source;
 
     private void Start()
     {
+        source = gameObject.AddComponent<AudioSource>();
+        source.playOnAwake = false;
         foreach (Sound sound in sounds)
         {
             sound.LoadClips();
-            AudioSource source = gameObject.AddComponent<AudioSource>();
-            source.playOnAwake = false;
-            SoundUtils.MakeSource(sound, source);
         }
     }
 
@@ -28,7 +28,6 @@ public class SoundController : MonoBehaviour
 
     private void PlayRandomSound(Sound sound)
     {
-        sound.source.clip = sound.clips[Random.Range(0, sound.clips.Count)];
-        sound.source.Play();
+        source.PlayOneShot(sound.clips[Random.Range(0, sound.clips.Count)], sound.volume);
     }
 }

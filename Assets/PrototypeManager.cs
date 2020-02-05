@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class PrototypeManager : MonoBehaviour
@@ -22,6 +23,10 @@ public class PrototypeManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.I))
         {
             showHideText.enabled = !showHideText.enabled;
+        }
+        else if (Input.GetKeyDown(KeyCode.L))
+        {
+            SceneManager.LoadScene(0);
         }
     }
 }
